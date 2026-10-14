@@ -20,11 +20,16 @@
 ## 安装
 
 1. 给浏览器装上 **Tampermonkey**（[Edge](https://microsoftedge.microsoft.com/addons/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) / [Chrome](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)）
-2. 点击安装脚本：
+2. 点击下面**任意一个**地址安装脚本（三个地址内容完全相同）：
 
-   **https://raw.githubusercontent.com/114514592/yuketang-auto-next/main/ykt-auto-next.user.js**
+   - 🚀 **国内镜像（推荐）**：<https://cdn.jsdelivr.net/gh/114514592/yuketang-auto-next@main/ykt-auto-next.user.js>
+   - **GitHub 原始地址**：<https://raw.githubusercontent.com/114514592/yuketang-auto-next/main/ykt-auto-next.user.js>
+   - **备用镜像**：<https://ghproxy.net/https://raw.githubusercontent.com/114514592/yuketang-auto-next/main/ykt-auto-next.user.js>
 
-   （或者把 `ykt-auto-next.user.js` 拖进浏览器窗口；若拖拽没反应，去 `edge://extensions` 给 Tampermonkey 打开「**允许访问文件网址**」）
+   > 部分校园网会拦截 `raw.githubusercontent.com`，遇到打不开就用第一个镜像地址。
+   > 注意：脚本的自动更新走的是 GitHub 原始地址，被拦截时只是收不到更新提示，不影响使用。
+
+   （也可以把 `ykt-auto-next.user.js` 拖进浏览器窗口；若拖拽没反应，去 `edge://extensions` 给 Tampermonkey 打开「**允许访问文件网址**」）
 3. 打开雨课堂的课程视频页，**刷新一次**
 
 ## 使用
