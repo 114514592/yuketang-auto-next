@@ -2,7 +2,7 @@
 // @name         雨课堂自动连播（播完点下一节）
 // @name:en      Yuketang Auto Next
 // @namespace    https://github.com/114514592/yuketang-auto-next
-// @version      3.1.2
+// @version      3.1.3
 // @description  雨课堂视频播完后自动切到下一个视频：适配 2026 新版「学习空间」/ai-workspace/lms-graph，兼容 /pro/lms 与 v2/web 旧版
 // @author       114514592
 // @license      MIT
@@ -240,10 +240,16 @@
   }
 
   // ---------- 找“下一个” ----------
-  const RE_VIDEO_LEAF = /视频/;
-  const RE_OTHER_LEAF = /作业|讨论|考试|测验|问卷|直播|课堂|图文|文档|课件/;
+  // 目录项的文字通常以类型标签开头（如「视频 第十讲 …」「作业 第5章…」），
+  // 所以这里锚定行首匹配，避免「作业 观看视频并提交心得」这种标题里的“视频”二字被误判。
+  const RE_VIDEO_LEAF = /^\s*视频/;
+  const RE_OTHER_LEAF = /^\s*(作业|讨论|考试|测验|问卷|直播|图文|文档|课件|课堂|公告|实验)/;
 
-  /** 目录：当前项后面第一个“视频”项，跳过作业/讨论/考试等 */
+  /**
+   * 目录：当前项后面第一个“视频”项。
+   * 原则是「宁可不切，也绝不打开作业/讨论/考试」——
+   * 所以最后一个候选兜底是 null，而不是相邻的下一项。
+   */
   function findNextLeaf() {
     const items = Array.from(document.querySelectorAll('.leaf-item'));
     const idx = items.findIndex((el) => el.classList.contains('is-active'));
@@ -253,7 +259,7 @@
     return (
       rest.find((el) => RE_VIDEO_LEAF.test(textOf(el))) ||
       rest.find((el) => !RE_OTHER_LEAF.test(textOf(el))) ||
-      rest[0]
+      null
     );
   }
 
@@ -442,7 +448,7 @@
 
   // 排查接口
   const api = {
-    version: '3.1.2',
+    version: '3.1.3',
     CONFIG,
     stats,
     parseContext,
@@ -510,7 +516,7 @@
   setInterval(publishReport, 3000);
   publishReport();
 
-  log('v3.1.2 已启动（页面版本 %s）', ctx0 ? ctx0.version : '未识别');
+  log('v3.1.3 已启动（页面版本 %s）', ctx0 ? ctx0.version : '未识别');
   log('若 console 取不到 __YKT__，说明脚本在隔离环境，改用这两条之一：');
   log('  document.getElementById("__ykt_report__").textContent');
   log('  document.dispatchEvent(new Event("ykt-report"))');
